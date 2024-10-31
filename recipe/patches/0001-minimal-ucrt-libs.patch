@@ -1,0 +1,44 @@
+From a3aa063c40f5fb755dce1fa9bcf80f8541d5b405 Mon Sep 17 00:00:00 2001
+From: Daniel Nachun <daniel.nachun@gmail.com>
+Date: Wed, 30 Oct 2024 23:41:12 -0700
+Subject: [PATCH] minimal ucrt libs
+
+---
+ src/Makevars.win | 26 +++-----------------------
+ 1 file changed, 3 insertions(+), 23 deletions(-)
+
+diff --git a/src/Makevars.win b/src/Makevars.win
+index 38fb59e..4f82ac1 100644
+--- a/src/Makevars.win
++++ b/src/Makevars.win
+@@ -1,24 +1,4 @@
+-VERSION = 1.15.10
+-RWINLIB = ../windows/cairo-${VERSION}
+-
+ PKG_CPPFLAGS = \
+-	-I${RWINLIB}/include/freetype2 \
+-	-I${RWINLIB}/include/harfbuzz
+-
+-PKG_LIBS = -L${RWINLIB}/lib${R_ARCH} -lharfbuzz -lfreetype -lpng \
+- -lbz2 -lz
+-
+-.PHONY: all
+-all: winlibs teardown
+-
+-.PHONY: winlibs
+-winlibs:
+-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" ${VERSION}
+-
+-.PHONY: teardown
+-teardown: $(SHLIB)
+-	rm -rf ../windows
+-
+-.PHONY: clean
+-clean:
+-	rm -rf $(SHLIB) $(OBJECTS) ../windows
++	-I$(subst \,/,$(LIBRARY_INC))/freetype2 \
++	-I$(subst \,/,$(LIBRARY_INC))/harfbuzz
++PKG_LIBS = -lharfbuzz -lfreetype -lpng -lbz2 -lz
+-- 
+2.47.0
+

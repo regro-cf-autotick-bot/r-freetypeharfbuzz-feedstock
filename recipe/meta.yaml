@@ -10,6 +10,8 @@ source:
     - {{ cran_mirror }}/src/contrib/freetypeharfbuzz_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/freetypeharfbuzz/freetypeharfbuzz_{{ version }}.tar.gz
   sha256: 675aa73a229eb0fb1b78b2ea8f5c2b735157db879589f44d7564ca81ed637164
+  patches:
+    - patches/0001-minimal-ucrt-libs.patch
 
 build:
   number: 3
@@ -50,7 +52,6 @@ about:
   license: GPL-3.0-only
   summary: Unlike other tools that dynamically link to the 'Cairo' stack, 'freetypeharfbuzz' is statically linked to specific versions of the 'FreeType' and 'harfbuzz' libraries (2.9 and 1.7.6 respectively). This ensures deterministic computation of text box extents for situations where reproducible results are crucial (for
     instance unit tests of graphics).
-  license_family: GPL3
   license_file:
     - {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
     - LICENSE
